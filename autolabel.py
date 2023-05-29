@@ -34,25 +34,10 @@ from PyQt5.uic import loadUi
 #         self.label.setAlignment(Qt.AlignCenter)
 #         self.label.setGeometry(0, 0, int(1920/2), int(1080/2))
 
-# class MainWindow(QMainWindow):
-#     def __init__(self):
-#         super().__init__()
-#         loadUi("mainwindow.ui", self)  # UI 파일 로드
-
-#         # QLabel에 이미지 설정
-#         image = QPixmap("image.jpg")
-#         self.lb_img.setPixmap(image)
-
-#         # QLabel에 이벤트 추가
-#         self.lb_img.mousePressEvent = self.labelMousePressEvent
-
-#     def labelMousePressEvent(self, event):
-#         if event.button() == Qt.LeftButton:
-#             print("이미지 라벨 클릭")
-
 class ImageLabel(QLabel):
     def __init__(self, parent=None):
         super().__init__(parent)
+        self.setScaledContents(True)  # QLzabel 크기에 이미지를 맞추기 위해 setScaledContents(True) 설정
         self.setPixmap(QPixmap("image.jpg"))
         self.drag_start_pos = None
 
@@ -84,9 +69,7 @@ class MainWindow(QMainWindow):
         loadUi("labeling.ui", self)  # UI 파일 로드
 
         # ImageLabel 생성 및 설정
-        self.lb_img = ImageLabel(self)
-        # self.lb_img.setGeometry(50, 50, 400, 300)
-
+        self.lb_img = ImageLabel(self.lb_img)
 
 if __name__ == "__main__":
     app = QApplication([])
